@@ -499,4 +499,19 @@ def trip_efficiency():
 # ==================== SERVER STARTUP ====================
 
 if __name__ == '__main__':
-        app.run(debug=True)
+    if not os.path.exists(DATABASE):
+        print("Error: Database not found!")
+        print("   Please run the setup scripts first:")
+        print("   1. python database/schema.py")
+        print("   2. python scripts/data_processor.py")
+        print("   3. python scripts/data_loader.py")
+    else:
+        print("Starting Flask API server...")
+        print("   API docs available at: http://127.0.0.1:5000/")
+        print("\n Available endpoint categories:")
+        print("   - Basic Queries (trips, counts)")
+        print("   - Statistics (summary, vendors, time patterns)")
+        print("   - Distributions (duration, distance, speed, passengers)")
+        print("   - Location Analysis (boroughs, top locations)")
+        print("   - Data Quality (suspicious trips, efficiency)")    
+    app.run(debug=True)
