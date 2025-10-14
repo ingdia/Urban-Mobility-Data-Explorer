@@ -514,4 +514,4 @@ if __name__ == '__main__':
         print("   - Distributions (duration, distance, speed, passengers)")
         print("   - Location Analysis (boroughs, top locations)")
         print("   - Data Quality (suspicious trips, efficiency)")    
-    app.run(debug=True)
+        app.run(debug=True)
