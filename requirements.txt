@@ -1,0 +1,5 @@
+# Web framework - creates API endpoints for frontend
+flask==3.0.0
+
+# Distance calculations - measures distance between GPS coordinates
+geopy==2.4.0
