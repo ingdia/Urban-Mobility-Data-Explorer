@@ -1,11 +1,17 @@
+/* ==================== GLOBAL STYLES ==================== */
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: rgb(246, 246, 247);
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
+  color: rgb(80, 80, 80);
 }
 
-
+/* ==================== HEADER ==================== */
 header {
   display: flex;
   justify-content: space-between;
@@ -38,6 +44,7 @@ header {
   margin: 0;
 }
 
+/* ==================== NAVIGATION ==================== */
 nav {
   display: flex;
   align-items: center;
@@ -51,14 +58,13 @@ nav a {
   font-size: 0.95rem;
   position: relative;
   transition: color 0.3s ease;
+  padding: 0.5rem 0;
 }
-
 
 nav a:hover,
 nav a.active {
   color: rgb(199, 104, 8);
 }
-
 
 nav a::after {
   content: "";
@@ -76,263 +82,414 @@ nav a.active::after {
   width: 100%;
 }
 
-#Overview {
-    margin-top: 4%;
-    padding: 0 5%;
-    color: rgb(80, 80, 80);
+/* ==================== MAIN CONTENT ==================== */
+main {
+  padding: 0 3rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-#Overview h1 {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
+section {
+  animation: fadeIn 0.5s ease-in;
 }
 
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem; 
-    margin-bottom: 4rem;
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.card-item {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    transition: transform 0.2s;
+section h1 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: rgb(199, 104, 8);
+  text-align: center;
 }
 
-.card-item:hover {
-    transform: translateY(-5px); /* subtle hover effect */
-}
-
-.card-item i {
-    font-size: 24px;
-    color: rgb(199, 104, 8);
-    background-color: rgb(207, 206, 206);
-    padding: 10px;
-    border-radius: 50%;
-    margin-right: 16px;
-}
-
-.card-info h4 {
-    margin: 0 0 8px 0;
-    font-size: 1.2rem;
-}
-
-.card-info p {
-    margin: 0;
-    font-weight: bold;
-    font-size: 1rem;
-    color:rgb(8, 68, 199)
-}
-
-.graph-header {
-  display: flex;
-  flex-direction: column;
+section h2 {
+  color: rgb(199, 104, 8);
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
-.graph-header h2 {
-  color: rgb(199, 104, 8);
-  font-size: 1.5rem;
+section h3 {
+  color: rgb(80, 80, 80);
+  font-size: 1.1rem;
   margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.info-text {
+  color: rgb(120, 120, 120);
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-style: italic;
+}
+
+/* ==================== CARDS ==================== */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.card-item {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  border-left: 4px solid rgb(199, 104, 8);
+}
+
+.card-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+
+.card-item.danger {
+  border-left-color: #dc3545;
+}
+
+.card-item.danger i {
+  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.card-item.success {
+  border-left-color: #28a745;
+}
+
+.card-item.success i {
+  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.card-item.warning {
+  border-left-color: #bd8c10;
+}
+
+.card-item.warning i {
+  color: #d08610;
+  background-color: rgba(255, 193, 7, 0.1);
+}
+
+.card-item i {
+  font-size: 2rem;
+  color: rgb(199, 104, 8);
+  background-color: rgba(199, 104, 8, 0.1);
+  padding: 15px;
+  border-radius: 50%;
+  margin-right: 16px;
+  min-width: 60px;
+  text-align: center;
+}
+
+.card-info h4 {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  color: rgb(120, 120, 120);
+  font-weight: 500;
+}
+
+.card-info p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: rgb(8, 68, 199);
+}
+
+/* ==================== SECTION WRAPPERS ==================== */
+.section-wrapper {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* ==================== FILTERS ==================== */
+.graph-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+}
+
+.graph-header h2 {
+  margin-bottom: 1rem;
 }
 
 .filters {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content:flex-end ;
+  justify-content: flex-end;
   gap: 10px;
 }
-@media (max-width: 600px) {
-  .filters { flex-direction: column; align-items: flex-start; }
-}
-
 
 .filters select,
-.filters input,
-.filters button {
-  padding: 5px 8px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
+.filters input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
   font-size: 0.9rem;
+  font-family: "Poppins", sans-serif;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.filters select:hover,
+.filters input:hover {
+  border-color: rgb(199, 104, 8);
+}
+
+.filters select:focus,
+.filters input:focus {
+  outline: none;
+  border-color: rgb(199, 104, 8);
 }
 
 .filters button {
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: none;
   background-color: rgb(199, 104, 8);
   color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  border: none;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
+  font-family: "Poppins", sans-serif;
 }
 
 .filters button:hover {
   background-color: rgb(170, 90, 6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(199, 104, 8, 0.3);
 }
 
-@media (max-width: 600px) {
-  .filters {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.filters button:active {
+  transform: translateY(0);
 }
 
-
-/* Media query for small screens */
-@media screen and (max-width: 600px) {
-  .filter-bar {
-    flex-direction: column; /* stack filters vertically */
-    align-items: stretch;
-  }
-
-  .filter-bar input, .filter-bar button, #tripFilter {
-    width: 100%; /* full width for better touch targets */
-  }
-
-  .graph-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-
+/* ==================== CHARTS ==================== */
 .charts-row {
   display: flex;
-  gap: 20px;      /* space between charts */
-  flex-wrap: wrap; /* responsive: stacks on small screens */
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
 }
 
 .chart-container {
-  flex: 1;           /* equal width */
-  min-width: 300px;  
+  flex: 1;
+  min-width: 300px;
   background-color: #fff;
-  border-radius: 2%;
-  padding: 2%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-
-/* Responsive tweaks for smaller screens */
-@media (max-width: 600px) {
-    .card-item {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .card-item i {
-        margin: 0 0 10px 0;
-    }
+/* ==================== TABLES ==================== */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 8px;
 }
 
-
-
-@media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 1rem;
-  }
-
-  nav {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-  }
-  .logo_container p {
-    font-size: 1rem;
-    margin: 0;
-    text-align: center;
-
-  }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  min-width: 600px;
+  background-color: #fff;
 }
 
-/* Spinner overlay */
+table th,
+table td {
+  border: 1px solid #e0e0e0;
+  padding: 12px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+table th {
+  background-color: rgb(199, 104, 8);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+table tr:hover {
+  background-color: rgba(199, 104, 8, 0.05);
+}
+
+table td {
+  color: rgb(80, 80, 80);
+}
+
+/* ==================== QUALITY STATS ==================== */
+.quality-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-badge {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  gap: 1rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.stat-badge i {
+  font-size: 2rem;
+  color: rgb(199, 104, 8);
+}
+
+.stat-badge div {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: rgb(120, 120, 120);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(8, 68, 199);
+}
+
+/* ==================== DATA QUALITY GRID ==================== */
+.quality-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.quality-item {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.quality-item i {
+  font-size: 2.5rem;
+  color: rgb(199, 104, 8);
+  margin-bottom: 1rem;
+}
+
+.quality-item h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: rgb(80, 80, 80);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, rgb(199, 104, 8), rgb(255, 140, 0));
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.quality-item span {
+  font-weight: 600;
+  color: rgb(80, 80, 80);
+  font-size: 1.1rem;
+}
+
+/* ==================== SPINNER ==================== */
 #spinner {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* transparent dark background */
+  background-color: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 2000;
 }
 
-/* Spinner circle */
 #spinner .spinner {
   width: 60px;
   height: 60px;
-  border: 6px solid rgba(255, 255, 255, 0.3); /* light semi-transparent border */
-  border-top: 6px solid white; /* spinning border */
+  border: 6px solid rgba(255, 255, 255, 0.3);
+  border-top: 6px solid rgb(199, 104, 8);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-/* Spin animation */
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-/* Optional: hidden by default */
 #spinner.hidden {
   display: none;
 }
 
-.table-responsive {
-  width: 100%;
-  overflow-x: auto; /* horizontal scroll for small screens */
-  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
-}
-
-#topLocationsTable {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 20%;
-  margin-top: 15px;
-  min-width: 600px; /* ensures table columns don't shrink too much */
-}
-
-#topLocationsTable th, #topLocationsTable td {
-  border: 1px solid #ddd;
-  padding: 8px;
+/* ==================== FOOTER ==================== */
+footer {
+  background-color: white;
+  font-weight: 700;
+  border-top: 2px solid rgb(199, 104, 8);
+  color: rgb(93, 93, 93);
+  padding: 20px 0;
   text-align: center;
+  margin-top: 40px;
+}
+
+footer p {
+  margin: 0;
   font-size: 0.9rem;
 }
 
-#topLocationsTable th {
-  cursor: pointer;
-  background-color: #f4f4f4;
-}
-
-#topLocationsTable tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-#topLocationsTable tr:hover {
-  background-color: #f1f1f1;
-}
-
-/* Small screens adjustments */
-@media screen and (max-width: 600px) {
-  #topLocationsTable th, #topLocationsTable td {
-    padding: 6px 4px;
-    font-size: 0.8rem;
-  }
-
-  .top-locations-section h2 {
-    font-size: 1.2rem;
-  }
-}
-
-
-
-/* this the styles for time analysis page  */
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 15px;
+    padding: 1rem;
+  }}

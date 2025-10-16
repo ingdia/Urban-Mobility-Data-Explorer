@@ -10,30 +10,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- Spinner overlay -->
-<div id="spinner">
-  <div class="spinner"></div>
-</div>
+  <!-- Spinner overlay -->
+  <div id="spinner" class="hidden">
+    <div class="spinner"></div>
+  </div>
+
   <header>
     <div class="logo_container">
       <img src="./images/image.png" alt="Logo" id="logo" />
       <p>NYC Taxi Analytics</p>
     </div>
-
     <nav>
-      <a href="Overview" class="active">Overview</a>
-      <a href="Time-analysis">Time Analysis</a>
-      <a href="Trip-statistics">Trip Statistics</a>
-      <a href="Location-insights">Location Insights</a>
-      <a href="#">Data Quality</a>
+      <a href="#Overview" class="active">Overview</a>
+      <a href="#Time-analysis">Time Analysis</a>
+      <a href="#Trip-statistics">Trip Statistics</a>
+      <a href="#Location-insights">Location Insights</a>
+      <a href="#Data-quality">Data Quality</a>
     </nav>
   </header>
 
   <main>
+    <!-- ================= OVERVIEW SECTION ================= -->
     <section id="Overview">
-      <h1>Dashboard</h1>
+      <h1>Dashboard Overview</h1>
       <div class="card-container">
-
         <div class="card-item">
           <i class="fa-solid fa-taxi"></i>
           <div class="card-info">
@@ -41,8 +41,6 @@
             <p id="totalTrips">Loading...</p>
           </div>
         </div>
-
-        
 
         <div class="card-item">
           <i class="fa-solid fa-clock"></i>
@@ -69,130 +67,356 @@
         </div>
       </div>
 
-<div id="Graphs">
-  <div class="graph-header">
-    <h2>Trips Overview</h2>
-    
-    <div class="filters">
-      <!-- Interval filter -->
-      <select id="tripFilter">
-        <option value="daily" selected>Daily</option>
-        <option value="weekly">Weekly</option>
-        <option value="monthly">Monthly</option>
-      </select>
+      <div class="section-wrapper">
+        <div class="graph-header">
+          <h2>Trips Overview</h2>
+          <div class="filters">
+            <select id="tripFilter">
+              <option value="daily" selected>Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+            <select id="vendorFilter">
+              <option value="all" selected>All Vendors</option>
+              <option value="1">Creative Mobile</option>
+              <option value="2">VeriFone Taxi Co</option>
+            </select>
+            <button id="applyFilter">Apply Filter</button>
+          </div>
+        </div>
+        <canvas id="hourlyChart" width="400" height="200"></canvas>
+      </div>
 
-      <!-- Vendor filter -->
-      <select id="vendorFilter">
-        <option value="all" selected>All Vendors</option>
-        <option value="1">Creative Mobile</option>
-        <option value="2">VeriFone Taxi Co</option>
-      </select>
-
-      <!-- Apply button -->
-      <button id="applyFilter">Apply Filter</button>
-    </div>
-  </div>
-
-  <!-- Chart -->
-  <canvas id="hourlyChart" width="400" height="200"></canvas>
-</div>
-
-
-      <div class="distribution-section">
-        <h2>Trips Overview</h2>
+      <div class="section-wrapper">
+        <h2>Distribution Analysis</h2>
         <div class="charts-row">
           <div class="chart-container">
+            <h3>Trip Duration</h3>
             <canvas id="durationChart" width="400" height="300"></canvas>
           </div>
-
           <div class="chart-container">
+            <h3>Trips by Borough</h3>
             <canvas id="locationChart" width="400" height="300"></canvas>
           </div>
         </div>
       </div>
 
+      <div class="charts-row">
+        <div class="chart-container">
+          <h3>Trip Distance</h3>
+          <canvas id="distanceChart" width="400" height="300"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>Trip Speed</h3>
+          <canvas id="speedChart" width="400" height="300"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>Passenger Count</h3>
+          <canvas id="passengerChart" width="400" height="300"></canvas>
+        </div>
+      </div>
 
-      <!-- New Distribution Charts -->
-<div class="charts-row">
-  <div class="chart-container">
-    <canvas id="distanceChart" width="400" height="300"></canvas>
-  </div>
-  <div class="chart-container">
-    <canvas id="speedChart" width="400" height="300"></canvas>
-  </div>
-  <div class="chart-container">
-    <canvas id="passengerChart" width="400" height="300"></canvas>
-  </div>
-</div>
+      <div class="section-wrapper">
+        <h2>Top Pickup Locations</h2>
+        <div class="table-responsive">
+          <table id="topLocationsTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Borough</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Number of Trips</th>
+              </tr>
+            </thead>
+            <tbody id="topLocationsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
 
+      <div class="section-wrapper">
+        <h2>Vendor Performance</h2>
+        <canvas id="vendorChart" width="400" height="200"></canvas>
+      </div>
 
-<div class="data-quality-section">
-  <h2>Data Quality</h2>
-  <p>Total Suspicious Trips: <span id="suspiciousTrips">Loading...</span></p>
-  <canvas id="efficiencyChart" width="400" height="300"></canvas>
-</div>
-
-<!-- Top Pickup Locations -->
-<div class="top-locations-section">
-  <h2>Top Pickup Locations</h2>
-  <div class="table-responsive">
-    <table id="topLocationsTable">
-      <thead>
-        <tr>
-          <th data-column="rank">Rank &#8597;</th>
-          <th data-column="borough">Borough &#8597;</th>
-          <th data-column="latitude">Latitude &#8597;</th>
-          <th data-column="longitude">Longitude &#8597;</th>
-          <th data-column="trip_count">Number of Trips &#8597;</th>
-        </tr>
-      </thead>
-      <tbody id="topLocationsTableBody">
-        <!-- Rows will be inserted dynamically -->
-      </tbody>
-    </table>
-  </div>
-</div>
-
-<div id="VendorGraphs">
-  <div class="graph-header">
-    <h2>Trips by Vendor</h2>
-  </div>
-
-  <canvas id="vendorChart" width="400" height="200"></canvas>
-</div>
-
-
+      <div class="section-wrapper">
+        <h2>Trip Efficiency</h2>
+        <p class="info-text">Analyzing the relationship between trip distance and duration</p>
+        <div class="quality-stats">
+          <div class="stat-badge">
+            <i class="fa-solid fa-exclamation-triangle"></i>
+            <div>
+              <span class="stat-label">Suspicious Trips</span>
+              <span class="stat-value" id="suspiciousTrips">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <canvas id="efficiencyChart" width="400" height="300"></canvas>
+      </div>
     </section>
 
-    <!--the Time analysis page -->
-
-    <!-- <section id="Time-analysis" style="display:none;">
+    <!-- ================= TIME ANALYSIS SECTION ================= -->
+    <section id="Time-analysis" style="display: none;">
       <h1>Time Analysis</h1>
-      <div class="time-filters">
-        <select id="timeInterval">
-          <option value="hourly" selected>Hourly</option>
-          <option value="daily">Daily</option>
-          <option value="weekly">Weekly</option>
-          <option value="monthly">Monthly</option>
-        </select>
-
-        <select id="timeVendor">
-          <option value="all" selected>All Vendors</option>
-          <option value="1">Creative Mobile</option>
-          <option value="2">VeriFone Taxi Co</option>
-        </select>
-
-        <button id="applyTimeFilter">Apply Filter</button>
+      
+      <div class="card-container">
+        <div class="card-item">
+          <i class="fa-solid fa-chart-line"></i>
+          <div class="card-info">
+            <h4>Peak Hour</h4>
+            <p id="peakHour">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <i class="fa-solid fa-moon"></i>
+          <div class="card-info">
+            <h4>Lowest Hour</h4>
+            <p id="lowestHour">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <div class="card-info">
+            <h4>Rush Hour Avg Speed</h4>
+            <p id="rushHourSpeed">Loading...</p>
+          </div>
+        </div>
       </div>
 
-      <div class="chart-container">
+      <div class="section-wrapper">
+        <div class="graph-header">
+          <h2>Trips Over Time</h2>
+          <div class="filters">
+            <select id="timeInterval">
+              <option value="hourly" selected>Hourly</option>
+              <option value="daily">Daily</option>
+              <option value="weekly">Weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+            <select id="timeVendor">
+              <option value="all" selected>All Vendors</option>
+              <option value="1">Creative Mobile</option>
+              <option value="2">VeriFone Taxi Co</option>
+            </select>
+            <button id="applyTimeFilter">Apply Filter</button>
+          </div>
+        </div>
         <canvas id="timeAnalysisChart" width="800" height="400"></canvas>
       </div>
-    </section> -->
+
+      <div class="section-wrapper">
+        <h2>Rush Hour Analysis</h2>
+        <p class="info-text">Average speed by hour - lower speeds indicate heavier traffic</p>
+        <canvas id="rushHourChart" width="800" height="400"></canvas>
+      </div>
+    </section>
+
+    <!-- ================= TRIP STATISTICS SECTION ================= -->
+    <section id="Trip-statistics" style="display: none;">
+      <h1>Trip Statistics</h1>
+
+      <div class="card-container">
+        <div class="card-item">
+          <i class="fa-solid fa-road"></i>
+          <div class="card-info">
+            <h4>Max Distance</h4>
+            <p id="maxDistance">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <i class="fa-solid fa-hourglass-end"></i>
+          <div class="card-info">
+            <h4>Max Duration</h4>
+            <p id="maxDuration">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <i class="fa-solid fa-users"></i>
+          <div class="card-info">
+            <h4>Most Common Group</h4>
+            <p id="commonPassengers">Loading...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-wrapper">
+        <div class="graph-header">
+          <h2>Distance Distribution by Range</h2>
+          <div class="filters">
+            <select id="statsView">
+              <option value="distance" selected>Distance</option>
+              <option value="duration">Duration</option>
+              <option value="speed">Speed</option>
+            </select>
+            <button id="applyStatsFilter">Apply</button>
+          </div>
+        </div>
+        <canvas id="tripStatsChart" width="800" height="400"></canvas>
+      </div>
+
+      <div class="charts-row">
+        <div class="chart-container">
+          <h3>Vendor Comparison</h3>
+          <canvas id="vendorComparisonChart" width="400" height="300"></canvas>
+        </div>
+        <div class="chart-container">
+          <h3>Daily Patterns</h3>
+          <canvas id="dailyPatternsChart" width="400" height="300"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LOCATION INSIGHTS SECTION ================= -->
+    <section id="Location-insights" style="display: none;">
+      <h1>Location Insights</h1>
+
+      <div class="card-container">
+        <div class="card-item">
+          <i class="fa-solid fa-location-dot"></i>
+          <div class="card-info">
+            <h4>Top Pickup Borough</h4>
+            <p id="topPickupBorough">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <i class="fa-solid fa-flag-checkered"></i>
+          <div class="card-info">
+            <h4>Top Dropoff Borough</h4>
+            <p id="topDropoffBorough">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item">
+          <i class="fa-solid fa-city"></i>
+          <div class="card-info">
+            <h4>Active Boroughs</h4>
+            <p id="activeBoroughs">Loading...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-wrapper">
+        <h2>Top Pickup Locations</h2>
+        <p class="info-text">Most popular pickup areas across NYC boroughs</p>
+        <canvas id="pickupHeatmapChart" width="800" height="400"></canvas>
+      </div>
+
+      <div class="section-wrapper">
+        <h2>Borough Distribution</h2>
+        <p class="info-text">Trip distribution across New York City boroughs</p>
+        <canvas id="dropoffHeatmapChart" width="800" height="400"></canvas>
+      </div>
+
+      <div class="section-wrapper">
+        <h2>Detailed Location Data</h2>
+        <div class="table-responsive">
+          <table id="locationDetailsTable">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Borough</th>
+                <th>Coordinates</th>
+                <th>Total Trips</th>
+                <th>Percentage</th>
+              </tr>
+            </thead>
+            <tbody id="locationDetailsTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= DATA QUALITY SECTION ================= -->
+    <section id="Data-quality" style="display: none;">
+      <h1>Data Quality</h1>
+
+      <div class="card-container">
+        <div class="card-item danger">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <div class="card-info">
+            <h4>Suspicious Trips</h4>
+            <p id="totalSuspicious">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item success">
+          <i class="fa-solid fa-circle-check"></i>
+          <div class="card-info">
+            <h4>Clean Trips</h4>
+            <p id="cleanTrips">Loading...</p>
+          </div>
+        </div>
+        <div class="card-item warning">
+          <i class="fa-solid fa-percent"></i>
+          <div class="card-info">
+            <h4>Data Quality</h4>
+            <p id="qualityPercentage">Loading...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-wrapper">
+        <h2>Data Quality Overview</h2>
+        <p class="info-text">Distribution of valid vs suspicious trip records</p>
+        <canvas id="outlierDataChart" width="800" height="400"></canvas>
+      </div>
+
+      <div class="section-wrapper">
+        <h2>Suspicious Trip Analysis</h2>
+        <p class="info-text">Trips flagged for unusual speed, distance, or duration patterns</p>
+        <canvas id="suspiciousAnalysisChart" width="800" height="400"></canvas>
+      </div>
+
+      <div class="section-wrapper">
+        <h2>Data Completeness</h2>
+        <div class="quality-grid">
+          <div class="quality-item">
+            <i class="fa-solid fa-database"></i>
+            <h3>Distance Data</h3>
+            <div class="progress-bar">
+              <div class="progress-fill" id="distanceProgress"></div>
+            </div>
+            <span id="distancePercent">0%</span>
+          </div>
+          <div class="quality-item">
+            <i class="fa-solid fa-clock"></i>
+            <h3>Duration Data</h3>
+            <div class="progress-bar">
+              <div class="progress-fill" id="durationProgress"></div>
+            </div>
+            <span id="durationPercent">0%</span>
+          </div>
+          <div class="quality-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <h3>Location Data</h3>
+            <div class="progress-bar">
+              <div class="progress-fill" id="locationProgress"></div>
+            </div>
+            <span id="locationPercent">0%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-wrapper">
+        <h2>Flagged Records</h2>
+        <div class="table-responsive">
+          <table id="suspiciousTable">
+            <thead>
+              <tr>
+                <th>Trip ID</th>
+                <th>Date</th>
+                <th>Speed (km/h)</th>
+                <th>Distance (km)</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+            <tbody id="suspiciousTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer style="background-color: white; font-weight: 700; border-top: 1px solid goldenrod; color: rgb(93, 93, 93); padding: 20px 0; text-align: center; margin-top: 40px; font-family: 'Lato', sans-serif;">
-    <p style="margin: 0;">&copy; 2024 NYC Taxi Analytics. All rights reserved.</p>
+  <footer>
+    <p>&copy; 2024 NYC Taxi Analytics. All rights reserved.</p>
   </footer>
 
   <script src="app.js"></script>
