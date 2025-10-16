@@ -130,54 +130,40 @@ nav a.active::after {
     color:rgb(8, 68, 199)
 }
 
-
-
-
 .graph-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   margin-bottom: 1rem;
 }
 
 .graph-header h2 {
   color: rgb(199, 104, 8);
   font-size: 1.5rem;
-  margin: 0;
+  margin-bottom: 0.5rem;
 }
 
-#tripFilter {
-  padding: 0.4rem 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  background-color: #fff;
-  color: #444;
-  cursor: pointer;
-  transition: border-color 0.3s ease;
-}
-
-#tripFilter:hover {
-  border-color: rgb(199, 104, 8);
-}
-.filter-bar {
+.filters {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content:flex-end ;
   gap: 10px;
-  margin-bottom: 15px;
+}
+@media (max-width: 600px) {
+  .filters { flex-direction: column; align-items: flex-start; }
 }
 
-.filter-bar label {
-  font-weight: 500;
-}
 
-.filter-bar input, .filter-bar button {
+.filters select,
+.filters input,
+.filters button {
   padding: 5px 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+  font-size: 0.9rem;
 }
 
-.filter-bar button {
+.filters button {
   background-color: rgb(199, 104, 8);
   color: white;
   cursor: pointer;
@@ -185,9 +171,35 @@ nav a.active::after {
   transition: background-color 0.3s;
 }
 
-.filter-bar button:hover {
+.filters button:hover {
   background-color: rgb(170, 90, 6);
 }
+
+@media (max-width: 600px) {
+  .filters {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+
+/* Media query for small screens */
+@media screen and (max-width: 600px) {
+  .filter-bar {
+    flex-direction: column; /* stack filters vertically */
+    align-items: stretch;
+  }
+
+  .filter-bar input, .filter-bar button, #tripFilter {
+    width: 100%; /* full width for better touch targets */
+  }
+
+  .graph-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 
 .charts-row {
   display: flex;
@@ -240,3 +252,87 @@ nav a.active::after {
   }
 }
 
+/* Spinner overlay */
+#spinner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* transparent dark background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Spinner circle */
+#spinner .spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 255, 255, 0.3); /* light semi-transparent border */
+  border-top: 6px solid white; /* spinning border */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Optional: hidden by default */
+#spinner.hidden {
+  display: none;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* horizontal scroll for small screens */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+}
+
+#topLocationsTable {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 20%;
+  margin-top: 15px;
+  min-width: 600px; /* ensures table columns don't shrink too much */
+}
+
+#topLocationsTable th, #topLocationsTable td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+#topLocationsTable th {
+  cursor: pointer;
+  background-color: #f4f4f4;
+}
+
+#topLocationsTable tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#topLocationsTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Small screens adjustments */
+@media screen and (max-width: 600px) {
+  #topLocationsTable th, #topLocationsTable td {
+    padding: 6px 4px;
+    font-size: 0.8rem;
+  }
+
+  .top-locations-section h2 {
+    font-size: 1.2rem;
+  }
+}
+
+
+
+/* this the styles for time analysis page  */
