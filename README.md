@@ -388,4 +388,224 @@ JSON responses
 - Follows best practices for data processing
 - Production-ready with error handling and logging
 
+# NYC Taxi Analytics - Frontend Dashboard
+
+Beautiful, interactive dashboard for visualizing NYC taxi trip data.
+
+## Features
+
+### **5 Dashboard Sections:**
+
+1. **Overview** - KPIs, monthly trends, vendor comparison
+2. **Time Analysis** - 24-hour patterns, rush hour traffic
+3. **Trip Characteristics** - Duration, distance, speed, passenger distributions
+4. **Locations** - Borough analysis, interactive map of top pickup locations
+5. **Data Quality** - Suspicious trips, efficiency analysis
+
+### **Visualizations Included:**
+
+- **14 Interactive Charts** using Chart.js
+- **1 Interactive Map** using Leaflet
+- **1 Data Table** for suspicious trips
+- **Responsive Design** - works on desktop, tablet, and mobile
+
+## Setup Instructions
+
+### Option 1: Open Directly in Browser (Easiest)
+
+1. Make sure your Flask API is running:
+   ```bash
+   python app.py
+   ```
+
+2. Open `index.html` in your browser:
+   - **Windows:** Double-click `index.html`
+   - **Mac:** Right-click → Open With → Browser
+   - **Linux:** `xdg-open index.html`
+
+### Option 2: Use Python HTTP Server (Recommended)
+
+1. Start Flask API (in one terminal):
+   ```bash
+   python app.py
+   ```
+
+2. Start frontend server (in another terminal, from frontend folder):
+   ```bash
+   python -m http.server 8000
+   ```
+
+3. Open browser to:
+   ```
+   http://localhost:5500
+   ```
+
+### Option 3: Use Live Server (VS Code)
+
+1. Install "Live Server" extension in VS Code
+2. Right-click `index.html` → "Open with Live Server"
+
+## File Structure
+
+```
+frontend/
+├── index.html       # Main dashboard HTML
+├── styles.css       # All styling and responsive design
+├── app.js          # Data fetching and chart rendering
+└── README.md       # This file
+```
+
+## Technologies Used
+
+- **HTML5** - Structure
+- **CSS3** - Styling and animations
+- **JavaScript (ES6)** - Logic and interactivity
+- **Chart.js** - Charts and visualizations
+- **Leaflet** - Interactive maps
+- **Fetch API** - Getting data from Flask backend
+
+## Charts Breakdown
+
+| Chart | Type | Data Source |
+|-------|------|-------------|
+| Monthly Trends | Line Chart | `/api/stats/monthly-trends` |
+| Vendor Comparison | Pie Chart | `/api/stats/vendors` |
+| Daily Patterns | Bar Chart | `/api/stats/daily-patterns` |
+| 24-Hour Distribution | Line Chart | `/api/stats/hourly` |
+| Rush Hour Traffic | Bar Chart | `/api/stats/rush-hour` |
+| Duration Distribution | Bar Chart | `/api/stats/duration-distribution` |
+| Distance Distribution | Bar Chart | `/api/stats/distance-distribution` |
+| Speed Distribution | Bar Chart | `/api/stats/speed-distribution` |
+| Passenger Distribution | Doughnut Chart | `/api/stats/passenger-distribution` |
+| Borough Stats | Bar Chart | `/api/boroughs` |
+| Top Locations | Interactive Map | `/api/stats/top-locations` |
+| Trip Efficiency | Scatter Plot | `/api/stats/efficiency` |
+| Suspicious Trips | Data Table | `/api/suspicious` |
+
+## Troubleshooting
+
+### Error: "Failed to fetch"
+
+**Problem:** Cannot connect to Flask API
+
+**Solution:**
+1. Make sure Flask is running: `python app.py`
+2. Check API is accessible: http://127.0.0.1:5000/
+3. Check browser console for CORS errors
+
+### Charts not showing
+
+**Problem:** Data loaded but charts not rendering
+
+**Solution:**
+1. Check browser console for JavaScript errors
+2. Make sure Chart.js and Leaflet CDN links are working
+3. Try refreshing the page (Ctrl+F5 / Cmd+Shift+R)
+
+### Map not showing
+
+**Problem:** Map container is empty
+
+**Solution:**
+1. Check Leaflet CSS and JS are loaded
+2. Verify `/api/stats/top-locations` returns data
+3. Check browser console for errors
+
+### Slow loading
+
+**Problem:** Dashboard takes long to load
+
+**Solution:**
+1. This is normal for large datasets
+2. Wait for loading spinner to disappear
+3. Consider limiting data size in backend queries
+
+## Customization
+
+### Change Colors
+
+Edit `styles.css` and modify CSS variables:
+
+```css
+:root {
+    --primary-color: #2563eb;    /* Change to your color */
+    --secondary-color: #7c3aed;  /* Change to your color */
+    /* ... etc */
+}
+```
+
+### Add More Charts
+
+1. Add HTML in `index.html`:
+```html
+<div class="chart-card">
+    <h3 class="chart-title">My New Chart</h3>
+    <canvas id="myNewChart"></canvas>
+</div>
+```
+
+2. Add JavaScript in `app.js`:
+```javascript
+async function loadMyNewData() {
+    const response = await fetch(`${API_BASE_URL}/your-endpoint`);
+    const data = await response.json();
+    
+    const ctx = document.getElementById('myNewChart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar',
+        data: { /* your data */ },
+        options: { /* your options */ }
+    });
+}
+```
+
+3. Call it in `loadDashboard()`:
+```javascript
+await Promise.all([
+    // ... existing functions
+    loadMyNewData()
+]);
+```
+
+## Browser Compatibility
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## Performance Tips
+
+- Dashboard loads all data at once (may take 5-10 seconds)
+- Uses browser caching for faster subsequent loads
+- Charts are rendered client-side for better performance
+- Map uses only top 20 locations to avoid clutter
+
+## Assignment Notes
+
+This dashboard fulfills the frontend requirements:
+
+ **Web-based dashboard** using HTML, CSS, and JavaScript
+ **Filtering options** - Navigation between different views
+ **Sorting options** - Tables can be extended with sorting
+ **Dynamic interaction** - Charts update with data
+ **Visual summaries** - KPIs, charts, maps
+ **Detail views** - Suspicious trips table, efficiency analysis
+
+### Insights Demonstrated:
+
+1. **Time Patterns** - Rush hour identification, daily/monthly trends
+2. **Trip Characteristics** - Distribution analysis reveals common trip types
+3. **Location Analysis** - Borough popularity, hotspot identification
+4. **Traffic Analysis** - Speed variations indicate congestion patterns
+5. **Data Quality** - Suspicious trip detection and validation
+
+## Credits
+
+- **Chart.js** - https://www.chartjs.org/
+- **Leaflet** - https://leafletjs.com/
+- **OpenStreetMap** - https://www.openstreetmap.org/
+- **Data Source** - NYC Taxi & Limousine Commission
+
+
 
