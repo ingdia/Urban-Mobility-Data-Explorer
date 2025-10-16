@@ -5,11 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NYC Taxi Analytics</title>
   <link rel="stylesheet" href="./styles.css" />
-   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <script src="https://kit.fontawesome.com/297096f977.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://kit.fontawesome.com/297096f977.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+<!-- Spinner overlay -->
+<div id="spinner">
+  <div class="spinner"></div>
+</div>
   <header>
     <div class="logo_container">
       <img src="./images/image.png" alt="Logo" id="logo" />
@@ -24,101 +28,172 @@
       <a href="#">Data Quality</a>
     </nav>
   </header>
+
   <main>
-<section id="Overview">
-  <h1>Dashboard</h1>
-  <div class="card-container">
+    <section id="Overview">
+      <h1>Dashboard</h1>
+      <div class="card-container">
 
-    <div class="card-item">
-      <i class="fa-solid fa-taxi"></i>
-      <div class="card-info">
-        <h4>Total Trips</h4>
-        <p id="totalTrips">Loading...</p>
+        <div class="card-item">
+          <i class="fa-solid fa-taxi"></i>
+          <div class="card-info">
+            <h4>Total Trips</h4>
+            <p id="totalTrips">Loading...</p>
+          </div>
+        </div>
+
+        
+
+        <div class="card-item">
+          <i class="fa-solid fa-clock"></i>
+          <div class="card-info">
+            <h4>Average Duration</h4>
+            <p id="avgDuration">Loading...</p>
+          </div>
+        </div>
+
+        <div class="card-item">
+          <i class="fa-solid fa-road"></i>
+          <div class="card-info">
+            <h4>Average Distance</h4>
+            <p id="avgDistance">Loading...</p>
+          </div>
+        </div>
+
+        <div class="card-item">
+          <i class="fa-solid fa-tachometer-alt"></i>
+          <div class="card-info">
+            <h4>Average Speed</h4>
+            <p id="avgSpeed">Loading...</p>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="card-item">
-      <i class="fa-solid fa-clock"></i>
-      <div class="card-info">
-        <h4>Average Duration</h4>
-        <p id="avgDuration">Loading...</p>
-      </div>
-    </div>
-
-    <div class="card-item">
-      <i class="fa-solid fa-road"></i>
-      <div class="card-info">
-        <h4>Average Distance</h4>
-        <p id="avgDistance">Loading...</p>
-      </div>
-    </div>
-
-    <div class="card-item">
-      <i class="fa-solid fa-tachometer-alt"></i>
-      <div class="card-info">
-        <h4>Average Speed</h4>
-        <p id="avgSpeed">Loading...</p>
-      </div>
-    </div>
-
-  </div>
-
 
 <div id="Graphs">
   <div class="graph-header">
     <h2>Trips Overview</h2>
-    <select id="tripFilter">
-      <option value="daily" selected>Daily</option>
-      <option value="weekly">Weekly</option>
-      <option value="monthly">Monthly</option>
-      <option value="yearly">Yearly</option>
-    </select>
+    
+    <div class="filters">
+      <!-- Interval filter -->
+      <select id="tripFilter">
+        <option value="daily" selected>Daily</option>
+        <option value="weekly">Weekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
 
-    <div class="filter-bar">
-  <label for="startDate">Start Date:</label>
-  <input type="date" id="startDate">
+      <!-- Vendor filter -->
+      <select id="vendorFilter">
+        <option value="all" selected>All Vendors</option>
+        <option value="1">Creative Mobile</option>
+        <option value="2">VeriFone Taxi Co</option>
+      </select>
 
-  <label for="endDate">End Date:</label>
-  <input type="date" id="endDate">
-
-  <button id="applyFilter">Apply Filter</button>
-</div>
+      <!-- Apply button -->
+      <button id="applyFilter">Apply Filter</button>
+    </div>
   </div>
 
+  <!-- Chart -->
   <canvas id="hourlyChart" width="400" height="200"></canvas>
 </div>
-<div class="distribution-section">
-  <h2>Trips Overview</h2>
 
-  <div class="charts-row">
-    <!-- Left chart: Trip Duration -->
-    <div class="chart-container">
-      <canvas id="durationChart" width="400" height="300"></canvas>
-    </div>
 
-    <!-- Right chart: Trips by Borough (Location) -->
-    <div class="chart-container">
-      <canvas id="locationChart" width="400" height="300"></canvas>
-    </div>
+      <div class="distribution-section">
+        <h2>Trips Overview</h2>
+        <div class="charts-row">
+          <div class="chart-container">
+            <canvas id="durationChart" width="400" height="300"></canvas>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="locationChart" width="400" height="300"></canvas>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- New Distribution Charts -->
+<div class="charts-row">
+  <div class="chart-container">
+    <canvas id="distanceChart" width="400" height="300"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="speedChart" width="400" height="300"></canvas>
+  </div>
+  <div class="chart-container">
+    <canvas id="passengerChart" width="400" height="300"></canvas>
   </div>
 </div>
 
 
-</section>
+<div class="data-quality-section">
+  <h2>Data Quality</h2>
+  <p>Total Suspicious Trips: <span id="suspiciousTrips">Loading...</span></p>
+  <canvas id="efficiencyChart" width="400" height="300"></canvas>
+</div>
+
+<!-- Top Pickup Locations -->
+<div class="top-locations-section">
+  <h2>Top Pickup Locations</h2>
+  <div class="table-responsive">
+    <table id="topLocationsTable">
+      <thead>
+        <tr>
+          <th data-column="rank">Rank &#8597;</th>
+          <th data-column="borough">Borough &#8597;</th>
+          <th data-column="latitude">Latitude &#8597;</th>
+          <th data-column="longitude">Longitude &#8597;</th>
+          <th data-column="trip_count">Number of Trips &#8597;</th>
+        </tr>
+      </thead>
+      <tbody id="topLocationsTableBody">
+        <!-- Rows will be inserted dynamically -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div id="VendorGraphs">
+  <div class="graph-header">
+    <h2>Trips by Vendor</h2>
+  </div>
+
+  <canvas id="vendorChart" width="400" height="200"></canvas>
+</div>
 
 
-    <!--this is the Time analysis section-->
-    <section id="Time-analysis"></section>
-    <!--this is the Trip statistics section-->
-    <section id="Trip-statistics"></section>
-    <!--this is the Location insights section-->
-    <section id="Location-insights"></section>
-    <!--this is the Data quality section-->
-    <section id="Data-quality"></section>
+    </section>
+
+    <!--the Time analysis page -->
+
+    <!-- <section id="Time-analysis" style="display:none;">
+      <h1>Time Analysis</h1>
+      <div class="time-filters">
+        <select id="timeInterval">
+          <option value="hourly" selected>Hourly</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+        </select>
+
+        <select id="timeVendor">
+          <option value="all" selected>All Vendors</option>
+          <option value="1">Creative Mobile</option>
+          <option value="2">VeriFone Taxi Co</option>
+        </select>
+
+        <button id="applyTimeFilter">Apply Filter</button>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="timeAnalysisChart" width="800" height="400"></canvas>
+      </div>
+    </section> -->
   </main>
-<footer style="background-color: white; font-weight: 700; border-top: 1px solid goldenrod; color: rgb(93, 93, 93); padding: 20px 0; text-align: center; margin-top: 40px; font-family: 'Lato', sans-serif;">
-  <p style="margin: 0;">&copy; 2024 NYC Taxi Analytics. All rights reserved.</p>
-</footer>
+
+  <footer style="background-color: white; font-weight: 700; border-top: 1px solid goldenrod; color: rgb(93, 93, 93); padding: 20px 0; text-align: center; margin-top: 40px; font-family: 'Lato', sans-serif;">
+    <p style="margin: 0;">&copy; 2024 NYC Taxi Analytics. All rights reserved.</p>
+  </footer>
 
   <script src="app.js"></script>
 </body>
