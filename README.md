@@ -33,6 +33,10 @@ The Urban Mobility Data Explorer is a full-stack web application designed to ana
 - *Responsive Design*: Optimized for desktop, tablet, and mobile devices
 
 ##  Team Members
+Ingabire Dianne
+Steven Kayitare 
+Innocent NKURUNZIZA
+Robert Cyubahiro
 
 ### Backend Engineers
 - *Data Processing & ETL Pipeline*: Responsible for data ingestion, cleaning, transformation, and loading processes using Python's built-in libraries (csv, sqlite3)
@@ -771,3 +775,4 @@ frontend/
 
 *Contact Information*
 - Project Repository: [[GitHub Repository URL](https://github.com/ingdia/Urban-Mobility-Data-Explorer)]
+- demo video link: https://drive.google.com/file/d/1oD0APhNmfiLxSSd8eCD4zkJTz-SEBrod/view?usp=sharing
